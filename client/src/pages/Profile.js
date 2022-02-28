@@ -3,9 +3,11 @@ import { Redirect, useParams } from 'react-router-dom';
 
 import ThoughtList from '../components/ThoughtList';
 import FriendList from '../components/FriendList';
+import ThoughtForm from '../components/ThoughtForm';
 import Auth from '../utils/auth';
+import { ADD_FRIEND } from '../utils/mutations';
 
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
 const Profile = () => {
@@ -14,6 +16,8 @@ const Profile = () => {
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam }
   });
+
+  const [addFriend] = useMutation(ADD_FRIEND);
 
   const user = data?.me || data?.user || {};
 // redirect to personal profile page if username is the logged-in user's
@@ -24,6 +28,16 @@ const Profile = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const handleClick = async () => {
+    try {
+      await addFriend({
+        variables: { id: user._id }
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   if (!user?.username) {
     return (
@@ -39,6 +53,12 @@ const Profile = () => {
         <h2 className="bg-dark text-secondary p-3 display-inline-block">
           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+
+        {userParam && (
+          <button className="btn ml-auto" onClick={handleClick}>
+            Add Friend
+          </button>
+        )}
       </div>
 
       <div className="flex-row justify-space-between mb-3">
@@ -54,6 +74,7 @@ const Profile = () => {
           />
         </div>
       </div>
+      <div className="mb-3">{!userParam && <ThoughtForm />}</div>
     </div>
   );
 };
