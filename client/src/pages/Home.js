@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
 import { QUERY_THOUGHTS, QUERY_ME_BASIC } from '../utils/queries';
@@ -7,6 +7,7 @@ import ThoughtList from '../components/ThoughtList';
 import Auth from '../utils/auth';
 import FriendList from '../components/FriendList';
 import ThoughtForm from '../components/ThoughtForm';
+
 
 const Home = () => {
   // use useQuery hook to make query request
@@ -41,6 +42,14 @@ const Home = () => {
               />
             </div>
           ) : null}
+          <div className="col-12 col-lg-3 mb-3">
+            <h3>Namespaces</h3>
+            <ul>
+                <li>
+                 <Link to='/draw/1'>Me</Link>
+                </li>
+      </ul>
+          </div>
       </div>
     </main>
   );

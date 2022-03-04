@@ -1,6 +1,7 @@
 const express = require('express');
-// import ApolloServer
+// import ApolloServer and socket
 const { ApolloServer } = require('apollo-server-express');
+const socketio = require('socket.io');
 
 // import our typeDefs and resolvers
 const { typeDefs, resolvers } = require('./schemas');
@@ -46,8 +47,18 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
+
 db.once('open', () => {
-  app.listen(PORT, () => {
+  const http = app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
   });
+  // Attach socket.io to the server instance
+const io = socketio(http)
+io.on('connection', (socket) => {
+  socket.on('drawing', function(data){
+    socket.broadcast.emit('drawing', data);
+    console.log(data);
+  });
+
+})
 });

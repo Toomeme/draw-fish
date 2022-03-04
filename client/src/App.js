@@ -2,16 +2,17 @@ import React from 'react';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import Board from './components/Board';
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Home from './pages/Home';
-
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+//import CanvasDraw from './components/Canvas';
 
 
 const httpLink = createHttpLink({
@@ -44,6 +45,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/draw/:ns" component={Board}/>
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/thought/:id" component={SingleThought} />
 
@@ -56,5 +58,4 @@ function App() {
     </ApolloProvider>
   );
 }
-
 export default App;
