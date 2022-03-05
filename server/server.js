@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 // import ApolloServer and socket
 const { ApolloServer } = require('apollo-server-express');
 const socketio = require('socket.io');
@@ -13,6 +14,17 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+
+function base64_decode(base64Image, file) {
+  var output = String(base64Image).split("base64,")[1];
+  fs.writeFileSync(file, output,'base64', function(err){
+  //Finished
+  });
+   console.log(output);
+
+}
+
 
 const startServer = async () => {
   // create a new Apollo server and pass in our schema data
@@ -59,6 +71,13 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('drawing', data);
     console.log(data);
   });
+
+  socket.on('image', function(image) {
+    data = JSON.stringify(image.image);
+    //console.log(data);
+    base64_decode(data,'copy.png')
+
+});
 
 })
 });
