@@ -1,23 +1,17 @@
 import DrawableCanvas from "../Canvas";
+import UserList from "./UserList";
 //import { Button } from "reactstrap";
+import React from "react";
 import {SocketContext} from './context/socket';
 const { Component } = require("react");
+
+
 var canvas, context;
 
 /* VARIABLES */
 var drawing = false;
 // determines the current x or y position
 var current = {x: 0, y: 0};
-
-function _base64ToArrayBuffer(base64) {
-  var binary_string = window.atob(base64.replace(/^data:image\/(png|jpg|jpeg);base64,/, ''));;
-  var len = binary_string.length;
-  var bytes = new Uint8Array(len);
-  for (var i = 0; i < len; i++) {
-      bytes[i] = binary_string.charCodeAt(i);
-  }
-  return bytes.buffer;
-};
 
 function midPointBtw(p1, p2) {
   return {
@@ -49,14 +43,41 @@ export class Drawing extends Component {
       saveData: "",
       immediateLoading: true,
       usingType: "draw",
+      username: null,
+      room: null,
+      userList: []
     };
   }
+  
+
+
 
   componentDidMount() {
     canvas = document.getElementsByName("canvas")[0].children[0].children[1];
     context = canvas.getContext("2d");
+    this.whiteboard = React.createRef();
     this.context.on('drawing', data => this.onDrawingEvent(data))
+    this.context.emit("join", {
+      username: this.props.username,
+      room: this.props.room
+    });
+  
+    this.context.on("joined", joined => {
+      this.setState({
+        id: joined.id,
+        username: joined.username,
+        room: joined.room
+      });
+    });
+  
+    this.context.on("users", users => {
+      this.setState({
+        userList: users
+      });
+    });
   }
+
+  
 
    onDrawingEvent(data) {
     this.drawLine(
@@ -102,6 +123,7 @@ export class Drawing extends Component {
         y1: y1 - canvasTopPosition,
         color: color,
         brushRadius : this.state.brushRadius,
+        room: this.state.room,
         type: this.state.usingType,
         globalCompositeOperation: context.globalCompositeOperation,
         message_type: "draw"
@@ -229,6 +251,7 @@ export class Drawing extends Component {
             />
           </div>
         </div>
+        <UserList userList={this.state.userList} />
         </div>
         
     );
