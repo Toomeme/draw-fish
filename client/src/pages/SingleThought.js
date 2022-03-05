@@ -26,6 +26,7 @@ const SingleThought = props => {
             thought on {thought.createdAt}
           </p>
           <div className="card-body">
+          <img src = {require(`../assets/${thought.thoughtImage}.png`)} alt= "Finished Drawing!"></img>
             <p>{thought.thoughtText}</p>
           </div>
         </div>

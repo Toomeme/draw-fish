@@ -27,6 +27,7 @@ const ThoughtForm = () => {
         }
       });
     const [thoughtText, setText] = useState('');
+    const thoughtImage = useState('');
     const [characterCount, setCharacterCount] = useState(0);
 
     const handleChange = event => {
@@ -42,7 +43,7 @@ const ThoughtForm = () => {
         try {
           // add thought to database
           await addThought({
-            variables: { thoughtText }
+            variables: { thoughtText,thoughtImage }
           });
       
           // clear form value
@@ -54,6 +55,7 @@ const ThoughtForm = () => {
       };
   return (
     <div>
+        <img src = {`../assets/${thoughtImage}.png`} alt= "Finished Drawing!"></img>
         <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
         Character Count: {characterCount}/280
         {error && <span className="ml-2">Something went wrong...</span>}

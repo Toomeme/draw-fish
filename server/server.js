@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
   socket.on('image', function(image) {
     data = JSON.stringify(image.image);
     //console.log(data);
-    base64_decode(data,'copy.png')
+    base64_decode(data,`../client/src/assets/${room}.png`)
 
 });
 

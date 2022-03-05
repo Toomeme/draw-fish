@@ -39,8 +39,8 @@ export const ADD_FRIEND = gql`
 `;
 
 export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+  mutation addThought($thoughtText: String!,$thoughtImage: String!) {
+    addThought(thoughtText: $thoughtText, thoughtImage: $thoughtImage) {
       _id
       thoughtImage
       thoughtText
@@ -50,14 +50,6 @@ export const ADD_THOUGHT = gql`
       reactions {
         _id
       }
-    }
-  }
-`;
-
-export const ADD_IMAGE = gql`
-  mutation addImage($imageString: String!) {
-    addThought(imageString: $imageString) {
-      imageString
     }
   }
 `;
