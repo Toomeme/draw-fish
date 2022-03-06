@@ -1,20 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import {ErrorBoundary} from 'react-error-boundary';
 import { QUERY_THOUGHTS,QUERY_ME} from '../utils/queries';
 import Auth from '../utils/auth';
 import ThoughtForm from '../components/ThoughtForm';
-import FriendList from '../components/FriendList';
-
-
+import FriendList from '../components/FriendList';  
 
 
 
 
 const Post = () => {
   // use useQuery hook to make query request
-  
+
   const {data } = useQuery(QUERY_THOUGHTS);
   const {image: thoughtImage} = useParams();
   // use object destructuring to extract `data` from the `useQuery` Hook's response and rename it `userData` to be more descriptive
@@ -24,24 +21,22 @@ const Post = () => {
   console.log(thoughts);
   const loggedIn = Auth.loggedIn();
 
-  function ErrorFallback({error, resetErrorBoundary}) {
-    return (
-      <div role="alert">
-        <p>Something went wrong:</p>
-        <pre>{error.message}</pre>
-        <button onClick={resetErrorBoundary}>Try again</button>
-      </div>
-    )
-  }
+  var path = `./../assets/${thoughtImage}.png`
+  //create your forceUpdate hook
+function useForceUpdate(){
+  const [value, setValue] = useState(0); // integer state
+  path = require(`./../assets/${thoughtImage}.png`)
+  console.log("fixed")
+  return () => setValue(value => value + 1); // update the state to force render
+  
+}
 
-
-  return (
+  return ( 
     <main>
   
-  <ErrorBoundary
-    FallbackComponent={ErrorFallback}>
-      <img key={Math.random().toString(36)} src = {require(`./../assets/${thoughtImage}.png`)} alt= "Finished Drawing!"></img>
-  </ErrorBoundary>
+ 
+      <img onError={useForceUpdate()} key={Math.random().toString(36)} src = {path} alt= "Finished Drawing!"></img>
+
         
         
         {loggedIn && (

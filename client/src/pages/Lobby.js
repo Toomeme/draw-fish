@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import Board from "../components/Board";
 import Choose from "../components/Board/Choose";
 
-
-
 class Lobby extends Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,6 +37,7 @@ class Lobby extends Component {
 			});
 		});
 	}
+
 
 	changeHandler = (inputName, value) => {
 		this.setState({

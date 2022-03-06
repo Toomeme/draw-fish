@@ -15,29 +15,6 @@ export default class Choose extends Component {
 						<div>
 							<div className="input-container">
 								<input
-									onKeyPress={(e) =>
-										e.key === "Enter"
-											? this.props.setUsername()
-											: null
-									}
-									name="typing"
-									placeholder="name"
-									value={this.props.typing}
-									onChange={(e) =>
-										this.props.changeHandler(
-											e.target.name,
-											e.target.value
-										)
-									}
-								/>
-							</div>
-							<span className="warning-message">
-								{this.props.typing.length > 25
-									? this.props.messageName
-									: null}
-							</span>
-							<div className="input-container">
-								<input
 									name="typingRoom"
 									placeholder="room"
 									onKeyPress={(e) =>
@@ -68,7 +45,7 @@ export default class Choose extends Component {
 							<div className="instructions">
 								<h2>Instructions: </h2>
 								<p>
-									Type your name and a room name, if the room
+									Type a room name, if the room
 									exists you will join it, if not it will be
 									created for others to join. Anyone in the
 									same room can draw together!
