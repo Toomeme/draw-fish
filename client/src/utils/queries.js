@@ -4,8 +4,8 @@ export const QUERY_THOUGHTS = gql`
   query thoughts($username: String) {
     thoughts(username: $username) {
       _id
-      thoughtImage
       thoughtText
+      thoughtImage
       createdAt
       username
       reactionCount
@@ -23,8 +23,8 @@ export const QUERY_THOUGHT = gql`
   query thought($id: ID!) {
     thought(_id: $id) {
       _id
-      thoughtImage
       thoughtText
+      thoughtImage
       createdAt
       username
       reactionCount
@@ -51,8 +51,9 @@ export const QUERY_USER = gql`
       }
       thoughts {
         _id
-        thoughtImage
+       
         thoughtText
+        thoughtImage
         createdAt
         reactionCount
       }
@@ -69,8 +70,8 @@ export const QUERY_ME = gql`
       friendCount
       thoughts {
         _id
-        thoughtImage
         thoughtText
+        thoughtImage
         createdAt
         reactionCount
         reactions {
@@ -102,4 +103,3 @@ export const QUERY_ME_BASIC = gql`
     }
   }
 `;
-

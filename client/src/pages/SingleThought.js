@@ -26,7 +26,10 @@ const SingleThought = props => {
             thought on {thought.createdAt}
           </p>
           <div className="card-body">
-          <img src = {require(`../assets/${thought.thoughtImage}.png`)} alt= "Finished Drawing!"></img>
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+      <img key={Math.random().toString(36)} src = {require(`./../assets/${thought.thoughtImage}.png`)} alt= "Finished Drawing!"></img>)}
             <p>{thought.thoughtText}</p>
           </div>
         </div>

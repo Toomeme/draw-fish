@@ -1,11 +1,13 @@
 import DrawableCanvas from "../Canvas";
 import UserList from "./UserList";
-//import { Button } from "reactstrap";
+import Auth from '../../utils/auth';
 import React from "react";
 import {SocketContext} from './context/socket';
+import { Redirect } from 'react-router-dom';
 const { Component } = require("react");
 
 
+const loggedIn = Auth.loggedIn();
 var canvas, context;
 
 /* VARIABLES */
@@ -19,6 +21,7 @@ function midPointBtw(p1, p2) {
     y: p1.y + (p2.y - p1.y) / 2,
   };
 };
+
 
 export class Drawing extends Component {
   // this.context refers to socket.io making it available for all components
@@ -45,7 +48,9 @@ export class Drawing extends Component {
       usingType: "draw",
       username: null,
       room: null,
-      userList: []
+      userList: [],
+      submitted:false,
+      redirect:false
     };
   }
   
@@ -57,10 +62,15 @@ export class Drawing extends Component {
     context = canvas.getContext("2d");
     this.whiteboard = React.createRef();
     this.context.on('drawing', data => this.onDrawingEvent(data))
+      
     this.context.emit("join", {
       username: this.props.username,
       room: this.props.room
     });
+
+    this.context.on("saved", saved =>{
+      this.setState({submitted:false,redirect:true})
+    console.log("saved")});
   
     this.context.on("joined", joined => {
       this.setState({
@@ -162,7 +172,15 @@ export class Drawing extends Component {
 
 
   render() {
+    if (this.state.redirect){
+      return <Redirect push to={`/submit/${this.state.room}`}/>;
+    }
+    if (this.state.submitted){
+      return <div>Loading...</div>
+    }
+
     return (
+      
         <div
           name="canvas"
           onMouseDown={this.onMouseDown}
@@ -203,9 +221,13 @@ export class Drawing extends Component {
             Undo
           </button>
           <button
-            onClick={() => {
+            onClick={ () => {
+              if (loggedIn){
               var image = this.saveableCanvas.getDataURL();
-              this.context.emit('image', {image:image});
+              this.context.emit('image', {image:image,
+                room: this.state.room, message_type: "image"});
+              this.setState({submitted: true})
+              }
             }}
           >
             GetDataURL

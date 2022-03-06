@@ -1,5 +1,5 @@
 const express = require('express');
-const fs = require('fs');
+const fsPromises = require("fs/promises");
 // import ApolloServer and socket
 const { ApolloServer } = require('apollo-server-express');
 const socketio = require('socket.io');
@@ -20,13 +20,13 @@ let onlineCount = 0;
 let users = [];
 
 
-function base64_decode(base64Image, file) {
+const base64_decode = async (base64Image, file) => {
   var output = String(base64Image).split("base64,")[1];
-  fs.writeFileSync(file, output,'base64', function(err){
+  await fsPromises.writeFile(file, output,'base64', function(err){
   //Finished
   });
-   console.log(output);
-}
+  //console.log(output);
+};
 
 
 const startServer = async () => {
@@ -153,10 +153,14 @@ io.on('connection', (socket) => {
 		io.in(room).emit("users", currentUsersInRoom);
 	});
 
-  socket.on('image', function(image) {
+  socket.on('image', (image) =>{
     data = JSON.stringify(image.image);
     //console.log(data);
-    base64_decode(data,`../client/src/assets/${room}.png`)
+	function saved(){
+		var isaved = "jobs done!"
+		io.in(image.room).emit("saved",isaved)};
+	base64_decode(data,`../client/src/assets/${image.room}.png`)
+	setTimeout(saved,2000);
 
 });
 

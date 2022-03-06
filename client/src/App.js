@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Lobby from './pages/Lobby';
 import Login from './pages/Login';
+import Post from './pages/Post';
 import NoMatch from './pages/NoMatch';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
@@ -44,6 +45,7 @@ function App() {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/submit/:image" component={Post} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/draw" component={Lobby}/>
               <Route exact path="/profile/:username?" component={Profile} />
