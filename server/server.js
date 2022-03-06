@@ -1,5 +1,5 @@
 const express = require('express');
-const fsPromises = require("fs/promises");
+const fs = require("fs");
 // import ApolloServer and socket
 const { ApolloServer } = require('apollo-server-express');
 const socketio = require('socket.io');
@@ -20,9 +20,9 @@ let onlineCount = 0;
 let users = [];
 
 
-const base64_decode = async (base64Image, file) => {
+function base64_decode(base64Image, file) {
   var output = String(base64Image).split("base64,")[1];
-  await fsPromises.writeFile(file, output,'base64', function(err){
+  fs.writeFile(file, output,'base64', function(err){
   //Finished
   });
   //console.log(output);
