@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { QUERY_THOUGHTS,QUERY_ME} from '../utils/queries';
@@ -21,21 +21,11 @@ const Post = () => {
   console.log(thoughts);
   const loggedIn = Auth.loggedIn();
 
-  var path = `./../assets/${thoughtImage}.png`
-  //create your forceUpdate hook
-function useForceUpdate(){
-  const [value, setValue] = useState(0); // integer state
-  path = require(`./../assets/${thoughtImage}.png`)
-  console.log("fixed")
-  return () => setValue(value => value + 1); // update the state to force render
-  
-}
-
   return ( 
     <main>
   
  
-      <img onError={useForceUpdate()} key={Math.random().toString(36)} src = {path} alt= "Finished Drawing!"></img>
+      <img  key={Math.random().toString(36)} src = {`https://drawfish.s3.amazonaws.com/${thoughtImage}.png`} alt= "Finished Drawing!"></img>
 
         
         

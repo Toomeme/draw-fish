@@ -1,5 +1,13 @@
 const express = require('express');
-const fs = require("fs");
+const fsPromises = require("fs/promises");
+const fs = require('fs');
+const os = require('os');
+const AWS = require('aws-sdk');
+require('dotenv').config();
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 // import ApolloServer and socket
 const { ApolloServer } = require('apollo-server-express');
 const socketio = require('socket.io');
@@ -19,13 +27,36 @@ let onlineCount = 0;
 
 let users = [];
 
+const tempdir = os.tmpdir();
 
-function base64_decode(base64Image, file) {
+const uploadFile = (fileName) => {
+    // Read content from the file
+    const fileContent = fs.readFileSync(tempdir+fileName);
+
+    // Setting up S3 upload parameters
+    const params = {
+        Bucket: "drawfish",
+        Key: fileName, // File name you want to save as in S3
+        Body: fileContent
+    };
+
+    // Uploading files to the bucket
+    s3.upload(params, function(err, data) {
+        if (err) {
+            throw err;
+        }
+        console.log(`File uploaded successfully. ${data.Location}`);
+    });
+};
+
+
+const base64_decode = async (base64Image, file) => {
   var output = String(base64Image).split("base64,")[1];
-  fs.writeFile(file, output,'base64', function(err){
+  await fsPromises.writeFile(tempdir+file, output,'base64', function(err){
   //Finished
   });
   //console.log(output);
+  uploadFile(file);
 };
 
 
@@ -160,12 +191,9 @@ io.on('connection', (socket) => {
   socket.on('image', (image) =>{
     data = JSON.stringify(image.image);
     //console.log(data);
-	function saved(){
-		var isaved = "jobs done!"
-		io.in(image.room).emit("saved",isaved)};
-	base64_decode(data,`../client/src/assets/${image.room}.png`)
-	setTimeout(saved,2000);
-
+	var isaved = "jobs done!"
+	base64_decode(data,`${image.room}.png`)
+	.then(io.in(image.room).emit("saved",isaved));
 });
 
 })

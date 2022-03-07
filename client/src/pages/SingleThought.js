@@ -29,7 +29,7 @@ const SingleThought = props => {
           {loading ? (
             <div>Loading...</div>
           ) : (
-      <img key={Math.random().toString(36)} src = {require(`./../assets/${thought.thoughtImage}.png`)} alt= "Finished Drawing!"></img>)}
+      <img key={Math.random().toString(36)} src = {`https://drawfish.s3.amazonaws.com/${thought.thoughtImage}.png`} alt= "Finished Drawing!"></img>)}
             <p>{thought.thoughtText}</p>
           </div>
         </div>

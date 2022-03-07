@@ -20,31 +20,16 @@ const Home = () => {
 
   return (
     <main>
-                <div className="col-12 col-lg-3 mb-3">
-            <h3>Namespaces</h3>
-            <ul>
-                <li>
-                 <Link to='/draw'>Me</Link>
-                </li>
-      </ul>
-          </div>
+      <div className='hero'>
+      </div>
       <div className="flex-row justify-space-between">
-          <div className={`col-12 mb-3 ${loggedIn && 'col-lg-8'}`}>
+          <div className={`col-12 mb-3`}>
           {loading ? (
             <div>Loading...</div>
           ) : (
             <ThoughtList thoughts={thoughts} title="Some Feed for Thought(s)..." />
           )}
         </div>
-          {loggedIn && userData ? (
-            <div className="col-12 col-lg-3 mb-3">
-              <FriendList
-                username={userData.me.username}
-                friendCount={userData.me.friendCount}
-                friends={userData.me.friends}
-              />
-            </div>
-          ) : null}
       </div>
     </main>
   );
