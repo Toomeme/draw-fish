@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Board from "../components/Board";
 import Choose from "../components/Board/Choose";
+import uuid from 'react-uuid';
 
 class Lobby extends Component {
 
@@ -47,12 +48,11 @@ class Lobby extends Component {
 
 	setUsername = () => {
 		if (
-			this.state.typing.length <= 25 &&
-			this.state.typingRoom.length <= 25
+			this.state.typing.length <= 25
 		) {
 			this.setState({
 				username: this.state.typing || this.state.username,
-				room: this.state.typingRoom.toUpperCase()
+				room: uuid()
 			});
 		}
 	};

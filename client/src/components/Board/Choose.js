@@ -7,11 +7,7 @@ export default class Choose extends Component {
 			<div className="login">
 				<div>
 					<div className="login-container">
-						<div className="logo-container">
-							<h1 className="appname just">Draw</h1>
-							<h1 className="appname drw">Things</h1>
-
-							
+						<div className="logo-container">	
 						</div>
 						<div>
 							<div className="input-container">
@@ -37,29 +33,7 @@ export default class Choose extends Component {
 									? this.props.messageName
 									: null}
 							</span>
-							<div className="input-container">
-								<input
-									name="typingRoom"
-									placeholder="room"
-									onKeyPress={(e) =>
-										e.key === "Enter"
-											? this.props.setUsername()
-											: null
-									}
-									value={this.props.typingRoom}
-									onChange={(e) =>
-										this.props.changeHandler(
-											e.target.name,
-											e.target.value
-										)
-									}
-								/>
-							</div>
-							<span className="warning-message">
-								{this.props.typingRoom.length > 25
-									? this.props.messageRoom
-									: null}
-							</span>
+
 							<div className="submit-container">
 								<button
 									onClick={() => this.props.setUsername()}>
