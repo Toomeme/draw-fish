@@ -1,7 +1,7 @@
 const express = require('express');
-const fsPromises = require("fs/promises");
+const streamingS3 = require('streaming-s3');
 const fs = require('fs');
-const os = require('os');
+var Readable = require('stream').Readable
 const AWS = require('aws-sdk');
 require('dotenv').config();
 const s3 = new AWS.S3({
@@ -27,36 +27,22 @@ let onlineCount = 0;
 
 let users = [];
 
-const tempdir = os.tmpdir();
 
-const uploadFile = (fileName) => {
-    // Read content from the file
-    const fileContent = fs.readFileSync(tempdir+fileName);
-
-    // Setting up S3 upload parameters
-    const params = {
-        Bucket: "drawfish",
-        Key: fileName, // File name you want to save as in S3
-        Body: fileContent
-    };
-
-    // Uploading files to the bucket
-    s3.upload(params, function(err, data) {
-        if (err) {
-            throw err;
-        }
-        console.log(`File uploaded successfully. ${data.Location}`);
-    });
-};
-
-
-const base64_decode = async (base64Image, file) => {
+function base64_decode(base64Image, file) {
   var output = String(base64Image).split("base64,")[1];
-  await fsPromises.writeFile(tempdir+file, output,'base64', function(err){
-  //Finished
-  });
+  const imgBuffer = Buffer.from(output, 'base64')
+
+  var s = new Readable()
+  
+  s.push(imgBuffer)   
+  s.push(null) 
+  
+  s.pipe(fs.createWriteStream(file));
   //console.log(output);
-  uploadFile(file);
+  var params = {Bucket: "drawfish", Key: file, Body:s};
+s3.upload(params, function(err, data) {
+  console.log(err, data);
+});
 };
 
 
@@ -191,9 +177,12 @@ io.on('connection', (socket) => {
   socket.on('image', (image) =>{
     data = JSON.stringify(image.image);
     //console.log(data);
+	function emitsave(){
 	var isaved = "jobs done!"
-	base64_decode(data,`${image.room}.png`)
-	.then(io.in(image.room).emit("saved",isaved));
+	io.in(image.room).emit("saved",isaved);
+	}
+	base64_decode(data,`${image.room}.png`);
+	setTimeout(emitsave,2000)
 });
 
 })
