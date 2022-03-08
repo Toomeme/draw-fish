@@ -10,6 +10,8 @@ const { Component } = require("react");
 const loggedIn = Auth.loggedIn();
 var canvas, context;
 
+var fileID = '';
+
 /* VARIABLES */
 var drawing = false;
 // determines the current x or y position
@@ -30,10 +32,10 @@ export class Drawing extends Component {
   constructor(props) {
    super(props);
     this.state = {
-      canvasWidth: 1400,
-      canvasHeight: 1400,
-    brushColor: "#444",
-    catenaryColor: "#0a0302",
+      canvasWidth: 1000,
+      canvasHeight: 500,
+      brushColor: "#444",
+      catenaryColor: "#0a0302",
       lazyRadius: 12,
       brushRadius: 10,
       clear: false,
@@ -69,8 +71,10 @@ export class Drawing extends Component {
     });
 
     this.context.on("saved", saved =>{
-      this.setState({submitted:false,redirect:true})
-    console.log("saved")});
+      fileID = saved;
+      this.setState({submitted:false,redirect:true});
+    console.log(fileID)
+  });
   
     this.context.on("joined", joined => {
       this.setState({
@@ -173,7 +177,7 @@ export class Drawing extends Component {
 
   render() {
     if (this.state.redirect){
-      return <Redirect push to={`/submit/${this.state.room}`}/>;
+      return <Redirect push to={'/submit/'+ this.state.room + fileID}/>;
     }
     if (this.state.submitted){
       return <div>Loading...</div>
@@ -183,6 +187,7 @@ export class Drawing extends Component {
       
         <div
           name="canvas"
+          className="canvas"
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
@@ -230,30 +235,10 @@ export class Drawing extends Component {
               }
             }}
           >
-            GetDataURL
+          Publish!
           </button>
           <div>
-            <label>Width:</label>
-            <input
-              type="number"
-              value={this.state.width}
-              onChange={e =>
-                this.setState({ width: parseInt(e.target.value, 10) })
-              }
-            />
-          </div>
-          <div>
-            <label>Height:</label>
-            <input
-              type="number"
-              value={this.state.height}
-              onChange={e =>
-                this.setState({ height: parseInt(e.target.value, 10) })
-              }
-            />
-          </div>
-          <div>
-            <label>Brush-Radius:</label>
+            <label>Brush Radius:</label>
             <input
               type="number"
               value={this.state.brushRadius}
@@ -263,7 +248,7 @@ export class Drawing extends Component {
             />
           </div>
           <div>
-            <label>Lazy-Radius:</label>
+            <label>Stabilization:</label>
             <input
               type="number"
               value={this.state.lazyRadius}

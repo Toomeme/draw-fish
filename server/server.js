@@ -1,8 +1,8 @@
 const express = require('express');
-const streamingS3 = require('streaming-s3');
 const fs = require('fs');
 var Readable = require('stream').Readable
 const AWS = require('aws-sdk');
+const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -27,19 +27,23 @@ let onlineCount = 0;
 
 let users = [];
 
+var isaved = "";
+
 
 function base64_decode(base64Image, file) {
   var output = String(base64Image).split("base64,")[1];
   const imgBuffer = Buffer.from(output, 'base64')
 
-  var s = new Readable()
+  var filename = file + isaved + '.png';
+
+  var s = new Readable();
   
-  s.push(imgBuffer)   
-  s.push(null) 
+  s.push(imgBuffer);  
+  s.push(null);
   
-  s.pipe(fs.createWriteStream(file));
+  s.pipe(fs.createWriteStream(filename));
   //console.log(output);
-  var params = {Bucket: "drawfish", Key: file, Body:s};
+  var params = {Bucket: "drawfish", Key: filename , Body:s};
 s3.upload(params, function(err, data) {
   console.log(err, data);
 });
@@ -175,13 +179,13 @@ io.on('connection', (socket) => {
 	});
 
   socket.on('image', (image) =>{
+	isaved = uuidv4();
     data = JSON.stringify(image.image);
     //console.log(data);
 	function emitsave(){
-	var isaved = "jobs done!"
 	io.in(image.room).emit("saved",isaved);
 	}
-	base64_decode(data,`${image.room}.png`);
+	base64_decode(data, image.room);
 	setTimeout(emitsave,2000)
 });
 

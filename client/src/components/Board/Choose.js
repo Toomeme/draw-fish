@@ -7,10 +7,11 @@ export default class Choose extends Component {
 			<div className="login">
 				<div>
 					<div className="login-container">
-						<div className="logo-container">	
+						<div className="logo-container">
+							<h1 className="appname just">Let's Get Started!</h1>
 						</div>
 						<div>
-							<div className="input-container">
+							<div className="flex-row justify-center justify-space-between-md align-stretch">
 								<input
 									onKeyPress={(e) =>
 										e.key === "Enter"
@@ -19,6 +20,7 @@ export default class Choose extends Component {
 									}
 									name="typing"
 									placeholder="name"
+									className="form-input col-12 col-md-9"
 									value={this.props.typing}
 									onChange={(e) =>
 										this.props.changeHandler(
@@ -33,9 +35,33 @@ export default class Choose extends Component {
 									? this.props.messageName
 									: null}
 							</span>
-
+							<div className="flex-row justify-center justify-space-between-md align-stretch">
+								<input
+									name="typingRoom"
+									placeholder="room"
+									className="form-input col-12 col-md-9"
+									onKeyPress={(e) =>
+										e.key === "Enter"
+											? this.props.setUsername()
+											: null
+									}
+									value={this.props.typingRoom}
+									onChange={(e) =>
+										this.props.changeHandler(
+											e.target.name,
+											e.target.value
+										)
+									}
+								/>
+							</div>
+							<span className="warning-message">
+								{this.props.typingRoom.length > 25
+									? this.props.messageRoom
+									: null}
+							</span>
 							<div className="submit-container">
 								<button
+								className="btn col-12 col-md-3"
 									onClick={() => this.props.setUsername()}>
 									Join
 								</button>
