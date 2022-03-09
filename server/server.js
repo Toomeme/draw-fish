@@ -189,5 +189,11 @@ io.on('connection', (socket) => {
 	setTimeout(emitsave,2000)
 });
 
+socket.on('joinstate', (canvasstate) =>{
+
+	io.in(canvasstate.room).emit("joinstate",canvasstate);
+
+});
+
 })
 });

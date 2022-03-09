@@ -5,6 +5,10 @@ import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const StyledLink = styled(Link)`
+  color: #ffc301;
+`;
+
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
@@ -34,9 +38,6 @@ const handleFormSubmit = async event => {
   }
 };
 
-const StyledLink = styled(Link)`
-  color: #ffc301;
-`;
 
   return (
     <main className='flex-row justify-center mb-4' data-aos="zoom-in">

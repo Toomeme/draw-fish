@@ -5,6 +5,10 @@ import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 
+const StyledLink = styled(Link)`
+color: #ffc301;
+`;
+
 const Signup = () => {
   const [formState, setFormState] = useState({ username: '', email: '', password: '' });
   const [addUser, { error }] = useMutation(ADD_USER);
@@ -18,10 +22,6 @@ const Signup = () => {
       [name]: value,
     });
   };
-
-  const StyledLink = styled(Link)`
-  color: #ffc301;
-`;
 
   // submit form (notice the async!)
   const handleFormSubmit = async event => {

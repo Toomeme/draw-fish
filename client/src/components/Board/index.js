@@ -85,7 +85,12 @@ export class Drawing extends Component {
         username: joined.username,
         room: joined.room
       });
+      var canvasstate = this.saveableCanvas.getSaveData()
+      this.context.emit("joinstate",{canvasstate})
     });
+
+    this.context.on("joinstate",canvas =>{
+      this.saveableCanvas.loadSaveData(canvas)});
   
     this.context.on("users", users => {
       this.setState({
@@ -187,6 +192,8 @@ export class Drawing extends Component {
     }
 
     return (
+
+        <main>
       
         <div
           name="canvas"
@@ -201,9 +208,8 @@ export class Drawing extends Component {
           lazyRadius={this.state.lazyRadius}
           canvasWidth={this.state.width}
           canvasHeight={this.state.height}
-          className = 'canvasdraw'
-          
           />
+          </div>
           <div className='tools ml-3'>
           <button
           data-aos="fade-left"
@@ -288,7 +294,8 @@ export class Drawing extends Component {
           <h3>Users:</h3>
            <UserList userList={this.state.userList} />
           </div>
-        </div>
+        
+        </main>
         
     );
   }
