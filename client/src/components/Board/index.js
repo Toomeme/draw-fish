@@ -18,6 +18,8 @@ var drawing = false;
 // determines the current x or y position
 var current = {x: 0, y: 0};
 
+
+
 function midPointBtw(p1, p2) {
   return {
     x: p1.x + (p2.x - p1.x) / 2,
@@ -195,7 +197,7 @@ export class Drawing extends Component {
           onMouseLeave={() => drawing = false} // Determines if the mouse is outside the div
         >
           <DrawableCanvas ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-          brushColor={this.state.color}
+          brushColor={this.state.brushColor}
           brushRadius={this.state.brushRadius}
           lazyRadius={this.state.lazyRadius}
           canvasWidth={this.state.width}
@@ -234,6 +236,16 @@ export class Drawing extends Component {
           >
             <FaUndo />
           </button>
+          <div data-aos="fade-left">
+          <label>Color:</label>
+            <input
+              type="color"
+              value={this.state.brushColor}
+              onChange={e =>
+                this.setState({ brushColor: e.target.value })
+              }
+            />
+          </div>
 
           <div data-aos="fade-left">
             <label>Radius:</label>
@@ -253,7 +265,7 @@ export class Drawing extends Component {
               onChange={e =>
                 this.setState({ lazyRadius: parseInt(e.target.value, 10) })
               }
-            />          
+            />       
             <button
             data-aos="fade-left"
             className="btn col-12 col-md-3"
@@ -269,7 +281,13 @@ export class Drawing extends Component {
           Publish!
           </button>
           </div>
+          <div className="user-list" data-aos="fade-right">
+          <h3>Room:</h3>
+          <h5>{this.state.room}</h5>
+          <br></br>
+          <h3>Users:</h3>
           <UserList userList={this.state.userList} />
+          </div>
         </div>
         
         </div>

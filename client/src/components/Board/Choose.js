@@ -69,7 +69,7 @@ export default class Choose extends Component {
 							<div className="instructions">
 								<h2>Instructions: </h2>
 								<p>
-									Type your name and a room name, if the room
+									Type your display name and a room name, if the room
 									exists you will join it, if not it will be
 									created for others to join. Anyone in the
 									same room can draw together!
