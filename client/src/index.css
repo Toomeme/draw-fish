@@ -145,26 +145,42 @@ nav a:hover {
 }
 
 .canvas{
-display: flex;
-  margin-left: 5vw;
-  margin-right: auto;
+  display: flex;
+  margin-left: 4vw;
   margin-bottom: 5vh;
 
 }
 
-
+.canvasdraw{
+  box-shadow: 0px 10px 10px 10px rgb(0 0 0 / 25%);
+}
 .tools
 {
-    position: absolute;
-    top: 15vh;
-    right: 5vw;
-
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-start;
+    justify-items: flex-start;
+    column-gap:10px;
+    width: 6%;
+    height: 100%;
 }
+
+.user-list
+{
+display: block;
+position: absolute;
+left: 0;
+top:10%;
+width: 5%;
+height: 100%;
+margin-left: -60px;
+}
+
+
 
 /* CARDS */
 .card {
   margin: 0 0 20px 0;
-  border: 3px solid var(--secondary);
   border-radius: var(--border-radius);
   background-color: var(--light);
   color: var(--dark);
@@ -323,6 +339,16 @@ input[type=button] {
 }
 input[type=button]::-moz-focus-inner {
   border: 0 !important;
+}
+
+input[type=number] {
+  outline: none !important;
+  box-shadow: none !important;
+  width: 50px !important;
+}
+input[type=number]::-moz-focus-inner {
+  border: 0 !important;
+  width: 50px !important;
 }
 
 [type='radio']:checked,
@@ -1120,6 +1146,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 /* col-sm */
 @media screen and (min-width: 640px) {
+
   .col-sm-auto {
     flex-grow: 1;
     flex-basis: 0;

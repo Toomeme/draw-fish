@@ -66,7 +66,7 @@ const ThoughtForm = () => {
   }
 
   return (
-    <div>
+    <div data-aos="zoom-in">
       <p
         className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}
       >
@@ -78,7 +78,7 @@ const ThoughtForm = () => {
         onSubmit={handleFormSubmit}
       >
         <textarea
-          placeholder="Here's a new thought..."
+          placeholder="Write a short description!"
           value={thoughtText}
           className="form-input col-12 col-md-9"
           onChange={handleChange}

@@ -1,4 +1,5 @@
 import DrawableCanvas from "../Canvas";
+import { FaSave,FaUndo,FaEraser } from "react-icons/fa";
 import UserList from "./UserList";
 import Auth from '../../utils/auth';
 import React from "react";
@@ -180,7 +181,7 @@ export class Drawing extends Component {
       return <Redirect push to={'/submit/'+ this.state.room + fileID}/>;
     }
     if (this.state.submitted){
-      return <div>Loading...</div>
+      return <div className="justify-center">Loading...</div>
     }
 
     return (
@@ -199,9 +200,13 @@ export class Drawing extends Component {
           lazyRadius={this.state.lazyRadius}
           canvasWidth={this.state.width}
           canvasHeight={this.state.height}
+          className = 'canvasdraw'
+          
           />
-          <div className='tools'>
+          <div className='tools ml-3'>
           <button
+          data-aos="fade-left"
+          className="btn col-auto col-md-3"
             onClick={() => {
               localStorage.setItem(
                 "savedDrawing",
@@ -209,23 +214,49 @@ export class Drawing extends Component {
               );
             }}
           >
-            Save
+            <FaSave />
           </button>
           <button
+          data-aos="fade-left"
+          className="btn col-auto col-md-3"
             onClick={() => {
               this.saveableCanvas.eraseAll();
             }}
           >
-            Erase
+            <FaEraser />
           </button>
           <button
+          data-aos="fade-left"
+          className="btn col-auto col-md-3"
             onClick={() => {
               this.saveableCanvas.undo();
             }}
           >
-            Undo
+            <FaUndo />
           </button>
-          <button
+
+          <div data-aos="fade-left">
+            <label>Radius:</label>
+            <input
+              type="number"
+              value={this.state.brushRadius}
+              onChange={e =>
+                this.setState({ brushRadius: parseInt(e.target.value, 10) })
+              }
+            />
+          </div>
+          <div data-aos="fade-left">
+            <label>Stabilization:</label>
+            <input
+              type="number"
+              value={this.state.lazyRadius}
+              onChange={e =>
+                this.setState({ lazyRadius: parseInt(e.target.value, 10) })
+              }
+            />          
+            <button
+            data-aos="fade-left"
+            className="btn col-12 col-md-3"
             onClick={ () => {
               if (loggedIn){
               var image = this.saveableCanvas.getDataURL();
@@ -237,28 +268,10 @@ export class Drawing extends Component {
           >
           Publish!
           </button>
-          <div>
-            <label>Brush Radius:</label>
-            <input
-              type="number"
-              value={this.state.brushRadius}
-              onChange={e =>
-                this.setState({ brushRadius: parseInt(e.target.value, 10) })
-              }
-            />
           </div>
-          <div>
-            <label>Stabilization:</label>
-            <input
-              type="number"
-              value={this.state.lazyRadius}
-              onChange={e =>
-                this.setState({ lazyRadius: parseInt(e.target.value, 10) })
-              }
-            />
-          </div>
+          <UserList userList={this.state.userList} />
         </div>
-        <UserList userList={this.state.userList} />
+        
         </div>
         
     );

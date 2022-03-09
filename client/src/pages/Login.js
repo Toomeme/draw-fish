@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -32,8 +34,12 @@ const handleFormSubmit = async event => {
   }
 };
 
+const StyledLink = styled(Link)`
+  color: #ffc301;
+`;
+
   return (
-    <main className='flex-row justify-center mb-4'>
+    <main className='flex-row justify-center mb-4' data-aos="zoom-in">
       <div className='col-12 col-md-6'>
         <div className='card'>
           <h4 className='card-header'>Login</h4>
@@ -63,8 +69,13 @@ const handleFormSubmit = async event => {
             </form>
             {error && <div>Login failed</div>}
           </div>
-        </div>
+        </div>      
+        <div>
+        Don't have an account? &nbsp;
+        <StyledLink to = '/signup'>Sign up!</StyledLink>
       </div>
+      </div>
+
     </main>
   );
 };

@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { QUERY_THOUGHT } from '../utils/queries';
 import ReactionList from '../components/ReactionList';
+import ReactionForm from '../components/ReactionForm';
+
+import Auth from '../utils/auth';
 
 const SingleThought = props => {
   const { id: thoughtId } = useParams();
@@ -18,12 +21,12 @@ const SingleThought = props => {
   }
   return (
       <div>
-        <div className="card mb-3">
+        <div className="card mb-3" data-aos="zoom-in">
           <p className="card-header">
-            <span style={{ fontWeight: 700 }} className="text-light">
+            <span style={{ fontWeight: 700 }} className="text-dark">
               {thought.username}
             </span>{' '}
-            thought on {thought.createdAt}
+             on {thought.createdAt}
           </p>
           <div className="card-body">
           {loading ? (
@@ -35,6 +38,10 @@ const SingleThought = props => {
         </div>
 
         {thought.reactionCount > 0 && <ReactionList reactions={thought.reactions} />}
+        <br></br>
+
+        {Auth.loggedIn() && <ReactionForm thoughtId={thought._id} />}
+        <br></br>
       </div>
   );
 };

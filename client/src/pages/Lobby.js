@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Board from "../components/Board";
 import Choose from "../components/Board/Choose";
+import { Redirect } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 class Lobby extends Component {
 
@@ -66,9 +68,14 @@ class Lobby extends Component {
 		});
 	};
 
+
+
 	render() {
+		if (!Auth.loggedIn()){
+			return <Redirect push to={'/login'}/>;
+		  }
 		return (
-			<div className="Lobby">
+			<div className="Lobby" data-aos="fade-up">
 				{this.state.username && this.state.room ? (
 					<Board clearRoom={this.clearRoom} {...this.state} />
 				) : (

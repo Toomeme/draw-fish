@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <main>
       <div className='hero'>
-        <div className='mt-4'>
+        <div data-aos="fade-right" className='mt-4'>
         <h1 className='text-yellow'>Draw</h1>
         <h2>and</h2>
         <h1 className='text-yellow'>Share</h1>
@@ -32,19 +32,23 @@ const Home = () => {
         </Link>
         </div>
         </div>
-        <div className = 'heroimg mt-2 mr-1'></div>
+        <div className = 'heroimg mt-2 mr-1' data-aos="fade-left"></div>
       </div>
       <div className = 'heroborder'></div>
       <div className="mx-1 my-5">
-      <h1 id="about" className='text-center mb-4'>What is Drawfish?</h1>
+      <h1 id="about" data-aos="fade-up" className='text-center mb-4'>What is Drawfish?</h1>
   
-      <img src={cardImage} className="left abt-image"alt="cover" />
-      <h3>Collaborative drawing, and a place to share work!</h3>
-        <p className=''>Drawfish allows users to draw together in real time, and share their work to other users as a community. 
+      <img data-aos="fade-right" src={cardImage} className="left abt-image"alt="cover" />
+      <h3 data-aos="fade-left">Collaborative drawing, and a place to share work!</h3>
+        <p data-aos="fade-left">Drawfish allows users to draw together in real time, and share their work to other users as a community. 
         </p>
   
       </div>
-      <div className="flex-row justify-space-between">
+      <br></br>
+      <h3 data-aos="fade-left">Latest Posts!</h3>
+      <p data-aos="fade-left">Check out the latest drawings submitted by Drawfish users! 
+        </p>
+      <div className="flex-row justify-space-between" data-aos="zoom-in">
           <div className={`col-12 mb-3`}>
           {loading ? (
             <div>Loading...</div>

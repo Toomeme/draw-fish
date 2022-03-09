@@ -14,9 +14,8 @@ import Home from './pages/Home';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//import CanvasDraw from './components/Canvas';
-
-
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -37,6 +36,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+  AOS.init();
   return (
     <ApolloProvider client={client}>
       <Router>
