@@ -190,7 +190,6 @@ export class Drawing extends Component {
       
         <div
           name="canvas"
-          className="canvas"
           onMouseDown={this.onMouseDown}
           onMouseUp={this.onMouseUp}
           onMouseMove={this.onMouseMove}
@@ -267,7 +266,6 @@ export class Drawing extends Component {
               }
             />       
             <button
-            data-aos="fade-left"
             className="btn col-12 col-md-3"
             onClick={ () => {
               if (loggedIn){
@@ -281,15 +279,15 @@ export class Drawing extends Component {
           Publish!
           </button>
           </div>
+
+        </div>
           <div className="user-list" data-aos="fade-right">
           <h3>Room:</h3>
           <h5>{this.state.room}</h5>
           <br></br>
           <h3>Users:</h3>
-          <UserList userList={this.state.userList} />
+           <UserList userList={this.state.userList} />
           </div>
-        </div>
-        
         </div>
         
     );
