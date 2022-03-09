@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from './components/Header';
+import Nav from './components/Header/nav.js';
 import Footer from './components/Footer';
 import Lobby from './pages/Lobby';
 import Login from './pages/Login';
@@ -40,7 +41,9 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
+          <Nav />
           <Header />
+          
           <div className="container">
             <Switch>
               <Route exact path="/" component={Home} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import cardImage from '../assets/roulette.svg'
+import cardImage from '../assets/fishlogo.svg'
 import { QUERY_THOUGHTS} from '../utils/queries';
 import ThoughtList from '../components/ThoughtList';
 
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <main>
       <div className='hero'>
-        <div className='mt-5'>
+        <div className='mt-4'>
         <h1 className='text-yellow'>Draw</h1>
         <h2>and</h2>
         <h1 className='text-yellow'>Share</h1>
@@ -34,14 +34,15 @@ const Home = () => {
         </div>
         <div className = 'heroimg mt-2 mr-1'></div>
       </div>
-      <div>
+      <div className = 'heroborder'></div>
+      <div className="mx-1 my-5">
       <h1 id="about" className='text-center mb-4'>What is Drawfish?</h1>
-      <div className="my-2">
-      <img src={cardImage} className=" left abt-image"alt="cover" />
-      <h3>I'm Jacob, but you can call me Toomey!</h3>
-        <p className='text-right'>I aim to bring a 'full house' to your business with simple designs that stand out. Primarily a front-end developer (and hobbyist HTML5 game developer), but I've been trained in full stack practices. You can keep up with all my endeavors using the social media links at the bottom of the page. Don't take the gamble, reach out any time!
+  
+      <img src={cardImage} className="left abt-image"alt="cover" />
+      <h3>Collaborative drawing, and a place to share work!</h3>
+        <p className=''>Drawfish allows users to draw together in real time, and share their work to other users as a community. 
         </p>
-      </div>
+  
       </div>
       <div className="flex-row justify-space-between">
           <div className={`col-12 mb-3`}>

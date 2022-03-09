@@ -42,7 +42,6 @@ body {
 header{
  height: 10vh;
   z-index: 1;
-  box-shadow: 0px 7px 7px 7px rgb(0 0 0 / 15%);
 }
 
 h1,
@@ -168,14 +167,14 @@ display: flex;
   border: 3px solid var(--secondary);
   border-radius: var(--border-radius);
   background-color: var(--light);
-  color: var(--secondary);
+  color: var(--dark);
   box-shadow: 0px 10px 10px 10px rgb(0 0 0 / 25%);
 }
 
 .card-header {
-  color: var(--yellow);
+  color: var(--orange);
   margin: 0;
-  background-color: var(--secondary);
+  background-color: var(--light);
   padding: 0.625rem;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
@@ -260,13 +259,21 @@ display: flex;
   justify-content: space-evenly;
   background-color: var(--light);
   margin-bottom: 10vh;
-  margin-left: -150px;
   margin-top: -50px;
-  width: 150vw;
-  height:100vh;
+  width: 100vw;
+  height:94vh;
+  overflow: hidden;
+}
+
+.heroborder{
+  position: relative;
+  z-index: 2;
+  width: 160vw;
+  margin-left: -200px;
+  margin-top: -100px;
   border-bottom: 50px solid var(--primary);
   overflow: hidden;
-  box-shadow: 5px 15px 15px 15px rgb(0 0 0 / 8%);
+  box-shadow: 0 15px 10px -10px rgb(0 0 0 / 20%);
 }
 
 .left{
@@ -275,14 +282,15 @@ display: flex;
 }
 
 .abt-image{
-  top: 0;
-  width: 35vw;
-  height: 35vh;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 500px;
+  height: 500px;
 }
 
 .heroimg{
   width: 60%;
-  height: 150%;
+  height: 100%;
   background-image: url('./assets/fish.png');
   background-repeat: none;
 }
@@ -937,6 +945,73 @@ input[type=button]::-moz-focus-inner {
 
 .bg-secondary {
   background-color: var(--secondary);
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 24px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: var(--dark);
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: var(--orange);
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: var(--light);
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: var(--dark);
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: var(--light);
+  padding: 0.8em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* FLEX CONTENT */

@@ -39,7 +39,7 @@ db.once('open', async () => {
   let createdThoughts = [];
   for (let i = 0; i < 20; i += 1) {
     const thoughtText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
-    const thoughtImage = "BANG"
+    const thoughtImage = "AEOUFH5030430a-3841-4d73-8881-0bd4b5abddb9"
     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
