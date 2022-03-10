@@ -19,15 +19,6 @@ var drawing = false;
 var current = {x: 0, y: 0};
 
 
-
-function midPointBtw(p1, p2) {
-  return {
-    x: p1.x + (p2.x - p1.x) / 2,
-    y: p1.y + (p2.y - p1.y) / 2,
-  };
-};
-
-
 export class Drawing extends Component {
   // this.context refers to socket.io making it available for all components
   static contextType = SocketContext;
@@ -116,22 +107,19 @@ export class Drawing extends Component {
   
   drawLine(x0, y0, x1, y1, color,brushRadius, emit,duplicate) {
     // Gets the offset so it fits to any window size
-    var canvasTopPosition = document.getElementsByName("canvas")[0].offsetTop;
-    var canvasLeftPosition = document.getElementsByName("canvas")[0].offsetLeft;
+    var canvasTopPosition = 125;
+    var canvasLeftPosition = 97;
+    console.log(canvasTopPosition+"TOP");
+    console.log(canvasLeftPosition+"LEFT");
     // If Duplicate is false, it will draw on both monitors and cause duplication.
-    let p1 = {x:x0,y:y0};
-    let p2 = {x:x1,y:y1};
     if(duplicate)
     {
       context.beginPath();
-      context.moveTo(x1, y1);
-      var midPoint = midPointBtw(p1, p2);
-      context.quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-      context.lineTo(x0, y0);
+      context.moveTo(x0, y0);
+      context.lineTo(x1, y1);
       context.strokeStyle = color;
       context.lineWidth = brushRadius * 2;
       context.lineCap = 'round';
-      context.lineJoin = 'round';
       context.stroke();
       context.closePath();
     }
@@ -206,8 +194,8 @@ export class Drawing extends Component {
           brushColor={this.state.brushColor}
           brushRadius={this.state.brushRadius}
           lazyRadius={this.state.lazyRadius}
-          canvasWidth={this.state.width}
-          canvasHeight={this.state.height}
+          canvasWidth={this.state.canvasWidth}
+          canvasHeight={this.state.canvasHeight}
           />
           </div>
           <div className='tools ml-3'>
