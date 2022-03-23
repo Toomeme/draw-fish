@@ -106,7 +106,7 @@ export class Drawing extends Component {
   }
   
   drawLine(x0, y0, x1, y1, color,brushRadius, emit,duplicate) {
-    // Gets the offset so it fits to any window size
+    // hard code offset since canvas size is fixed.
     var canvasTopPosition = 125;
     var canvasLeftPosition = 97;
     console.log(canvasTopPosition+"TOP");

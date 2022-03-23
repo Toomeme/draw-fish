@@ -4,11 +4,11 @@ import React, { Component } from "react";
 export default class Choose extends Component {
 	render() {
 		return (
-			<div className="login">
+			<div>
 				<div>
-					<div className="login-container">
-						<div className="logo-container">
-							<h1 className="appname just">Let's Get Started!</h1>
+					<div>
+						<div>
+							<h1>Let's Get Started!</h1>
 						</div>
 						<div>
 							<div className="flex-row justify-center justify-space-between-md align-stretch">
@@ -54,19 +54,19 @@ export default class Choose extends Component {
 									}
 								/>
 							</div>
-							<span className="warning-message">
+							<span>
 								{this.props.typingRoom.length > 25
 									? this.props.messageRoom
 									: null}
 							</span>
-							<div className="submit-container">
+							<div>
 								<button
 								className="btn col-12 col-md-3"
 									onClick={() => this.props.setUsername()}>
 									Join
 								</button>
 							</div>
-							<div className="instructions">
+							<div>
 								<h2>Instructions: </h2>
 								<p>
 									Type your display name and a room name, if the room
