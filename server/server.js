@@ -96,7 +96,6 @@ db.once('open', () => {
 const io = socketio(http)
 io.on('connection', (socket) => {
   let addedToList = false;
-	let color;
 	let room;
 	let currentUsersInRoom;
 
@@ -105,9 +104,7 @@ io.on('connection', (socket) => {
 		onlineCount++;
 		join.id = onlineCount;
 		addedToList = true;
-		color = "red";
 		room = join.room;
-		join.color = color;
 		users.push(join);
 		socket.join(join.room);
 		socket.userId = join.id;
@@ -123,19 +120,6 @@ io.on('connection', (socket) => {
 
 	socket.on("drawing", (data) => {
 		socket.in(data.room).emit("drawing", data);
-	});
-
-	socket.on("color-change", (data) => {
-		currentUsersInRoom = users.filter((user) => {
-			if (user.room === data.room) {
-				if (user.id === data.id) {
-					color = data.color;
-					user.color = data.color;
-				}
-				return user;
-			}
-		});
-		io.in(data.room).emit("users", currentUsersInRoom);
 	});
 
 	socket.on("leaveroom", (data) => {
